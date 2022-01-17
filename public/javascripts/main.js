@@ -20,11 +20,12 @@ console.log('main is alive');
 //     });
 // };
 
-fetch('http://localhost:3000/data')
-.then(response => response.json())
-.then(data => showData(data));
 
+const fetchPrommis = fetch('http://localhost:3000/data');
 
+fetchPrommis.then(response => response.json())
+.then(data => showData(data))
+.catch(err => console.error(err));
 
 const showData = (data) => {
     const list = document.getElementById('list');
