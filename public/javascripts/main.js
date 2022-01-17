@@ -2,30 +2,21 @@
 
 console.log('main is alive');
 
-// const XHR = new XMLHttpRequest();
-// XHR.open('GET', 'http://localhost:3000/data');
-// XHR.responseType = 'json';
-// XHR.send();
+const fetchData = async () => {
+    const response = await fetch('http://localhost:3000/data');
 
-// XHR.onload = () => {
-//     const data = XHR.response;
-//     console.log('reseved data');
-    
-//     const list = document.getElementById('list');
+    if (!response.ok) {
+        throw new Error(response.status);
+    }
 
-//     data.forEach(element => {
-//         let listObject = document.createElement('li');
-//         listObject.innerText = element;
-//         list.append(listObject);
-//     });
-// };
+    let json = response.json();
 
+    return await json;
+}; 
 
-const fetchPrommis = fetch('http://localhost:3000/data');
-
-fetchPrommis.then(response => response.json())
+fetchData()
 .then(data => showData(data))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 const showData = (data) => {
     const list = document.getElementById('list');
